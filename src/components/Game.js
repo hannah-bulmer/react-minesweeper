@@ -12,4 +12,4 @@ class Game extends React.Component {
   }
 }
 
-module.exports = Game;
+export default Game;
