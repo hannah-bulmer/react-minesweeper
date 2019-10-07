@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import logo from './logo.svg';
+import Board from './Board';
 import '../styles/Game.scss';
 
 class Game extends React.Component {
