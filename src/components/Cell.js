@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react'
 
 class Cell extends React.Component {
   constructor(props) {

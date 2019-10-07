@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
-const React = require('react');
-const Board = require('./Board');
-require('../styles/Game.scss');
+import React from 'react';
+import logo from './logo.svg';
+import '../styles/App.css';
 
 class Game extends React.Component {
   render() {
