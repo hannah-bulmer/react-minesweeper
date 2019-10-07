@@ -1,6 +1,6 @@
 /* eslint-disable */
-const React = require('react');
-const Cell = require('./Cell');
+import React from 'react'
+import Cell from './Cell';
 
 class Board extends React.Component {
   constructor(props) {
@@ -169,4 +169,4 @@ class Board extends React.Component {
   }
 }
 
-module.exports = Board;
+export default Board;

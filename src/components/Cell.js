@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react'
 
 class Cell extends React.Component {
   constructor(props) {
@@ -45,4 +45,4 @@ class Cell extends React.Component {
   }
 }
 
-module.exports = Cell;
+export default Cell;
