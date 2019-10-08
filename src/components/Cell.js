@@ -12,9 +12,9 @@ class Cell extends React.Component {
 
   onClick = (e) => {
     let { clicked, value, saveValue } = this.state;
-    const { neighbours, x, y } = this.props;
+    const { neighbours, x, y, isMine } = this.props;
 
-    if (this.props.isMine && !e.shiftKey) return this.props.clickMine();
+    if (isMine && !e.shiftKey) this.props.clickMine();
 
     if (value === '🚩' || !clicked) {
       if (value === '🚩') value = saveValue;
@@ -23,7 +23,7 @@ class Cell extends React.Component {
         this.props.setFlag(x, y);
       } else {
         clicked = true;
-        if (neighbours === 0) this.props.clearAllBlanks(x, y);
+        if (neighbours === 0 && !isMine) this.props.clearAllBlanks(x, y);
       }
       this.setState({
         clicked,
