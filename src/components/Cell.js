@@ -35,7 +35,7 @@ class Cell extends React.Component {
   render() {
     let { value, clicked } = this.state;
     const { isClicked } = this.props;
-    value = clicked || value ==='🚩' ? value : '';
+    value = isClicked || clicked || value ==='🚩' ? value : '';
     const classNames = isClicked || clicked ? "clicked square" : "square";
     return (
       <button className={classNames} onClick={this.onClick}>

@@ -81,9 +81,12 @@ class Board extends React.Component {
     if (board[x][y].neighbours === 0 && !board[x][y].isClicked) {
       board[x][y].isClicked = true;
       if (x > 0) this.clearAllBlanks(x-1, y);
-      if (x < width) this.clearAllBlanks(x+1, y);
+      if (x < height) this.clearAllBlanks(x+1, y);
       if (y > 0) this.clearAllBlanks(x, y-1);
-      if (y < height) this.clearAllBlanks(x, y+1);
+      if (y < width) this.clearAllBlanks(x, y+1);
+      this.setState({ board })
+    } else if (!board[x][y].isMine) {
+      board[x][y].isClicked = true;
       this.setState({ board })
     }
   }
