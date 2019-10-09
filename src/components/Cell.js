@@ -11,31 +11,16 @@ class Cell extends React.Component {
   }
 
   onClick = (e) => {
-    let { clicked, value, saveValue } = this.state;
-    const { neighbours, x, y, isMine } = this.props;
-
-    if (isMine && !e.shiftKey) this.props.clickMine();
-
-    if (value === '🚩' || !clicked) {
-      if (value === '🚩') value = saveValue;
-      if (e.shiftKey) {
-        value = '🚩'
-        this.props.setFlag(x, y);
-      } else {
-        clicked = true;
-        if (neighbours === 0 && !isMine) this.props.clearAllBlanks(x, y);
-      }
-      this.setState({
-        clicked,
-        value,
-      });
-    }
+    const { x, y, onCellClick } = this.props;
+    onCellClick(e,x,y);
   }
   
   render() {
     let { value, clicked } = this.state;
-    const { isClicked } = this.props;
-    value = isClicked || clicked || value ==='🚩' ? value : '';
+    const { isClicked, flag } = this.props;
+    if (flag) value = '🚩'
+    else if (clicked || isClicked) {}
+    else value = '';
     const classNames = isClicked || clicked ? "clicked square" : "square";
     return (
       <button className={classNames} onClick={this.onClick}>

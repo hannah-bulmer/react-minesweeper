@@ -1,6 +1,6 @@
 $background: rgb(133, 196, 238);
 body {
-font: 14px "Century Gothic", Futura, sans-serif;
+font: 40px "Century Gothic", Futura, sans-serif;
 margin: 20px;
 }
 
@@ -8,6 +8,16 @@ ol, ul {
   padding-left: 30px;
 }
 
+.mineSweeper {
+  text-align: center;
+}
+
+.boardBackground {
+  border: 8px #6f6a6a groove;
+  width: fit-content;
+  border-radius: 3%;
+  margin: auto;
+}
 
 .board-row:after {
 clear: both;

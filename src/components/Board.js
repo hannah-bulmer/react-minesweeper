@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react'
 import Cell from './Cell';
+import { throwStatement } from '@babel/types';
 
 class Board extends React.Component {
   constructor(props) {
@@ -78,23 +79,35 @@ class Board extends React.Component {
     let {width, height } = this.props;
     width -= 1;
     height -= 1;
-    if (board[x][y].neighbours === 0 && !board[x][y].isClicked) {
+    if (board[x][y].neighbours === 0 && !board[x][y].isClicked && !board[x][y].flag) {
       board[x][y].isClicked = true;
       if (x > 0) this.clearAllBlanks(x-1, y);
       if (x < height) this.clearAllBlanks(x+1, y);
       if (y > 0) this.clearAllBlanks(x, y-1);
       if (y < width) this.clearAllBlanks(x, y+1);
       this.setState({ board })
-    } else if (!board[x][y].isMine) {
+    } else if (!board[x][y].isMine && !board[x][y].flag) {
       board[x][y].isClicked = true;
       this.setState({ board })
     }
   }
 
+  onClick = (e, x, y) => {
+    const { board } = this.state;
+    if (e.shiftKey) {
+      if (!board[x][y].isClicked) this.setFlag(x,y);
+    } else {
+      if (board[x][y].flag) return;
+      else if (board[x][y].isMine) this.clickMine();
+      else if (board[x][y].neighbours === 0) this.clearAllBlanks(x, y);
+      board[x][y].isClicked = true;
+      this.setState({ board });
+    }
+  }
+
   setFlag = (x, y) => {
     const { board } = this.state;
-    console.log("set")
-    board[x][y].flag = true;
+    board[x][y].flag = !board[x][y].flag;
     this.setState({ board })
     this.checkIfWon();
   }
@@ -111,7 +124,6 @@ class Board extends React.Component {
         if (cell.isMine && cell.flag) flagCounter ++;
       })
     })
-    console.log(flagCounter)
     if (flagCounter === this.props.mineCounter) this.setState({ won: true })
   }
 
@@ -135,11 +147,10 @@ class Board extends React.Component {
           cellValue={row[i].value}
           neighbours={row[i].neighbours}
           key={`${row[i]}${i}`}
+          flag={row[i].flag}
           isMine={row[i].isMine}
-          clearAllBlanks={this.clearAllBlanks}
-          clickMine={this.clickMine}
+          onCellClick={this.onClick}
           isClicked={row[i].isClicked}
-          setFlag={this.setFlag}
           x={x}
           y={i}
         />
@@ -163,7 +174,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="boardBackground">
         {this.renderBoard()}
         {this.state.lost && this.renderYouLose()}
         {this.state.won && this.renderYouWon()}
